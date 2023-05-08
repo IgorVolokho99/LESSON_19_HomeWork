@@ -18,7 +18,7 @@ class AuthService:
             raise Exception()
 
         if not is_refresh:
-            if self.user_service.compare_passwords(user.password, password):
+            if not self.user_service.compare_passwords(user.password, password):
                 raise Exception()
 
         data = {
@@ -48,4 +48,4 @@ class AuthService:
         if user is None:
             raise Exception()
 
-        return self.generate_tokens(username, user.password)
+        return self.generate_tokens(username, user.password, is_refresh=True)
